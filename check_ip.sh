@@ -1,21 +1,20 @@
 #!/bin/bash
 
-while true; do
-
 IP=$(curl -s ipinfo.io/ip)
 
-ls -lha | grep $IP
+while true; do
 
-if [ $? -ne 1 ]; then
+IP_CHECK=$(curl -s ipinfo.io/ip)
+
+if [ "$IP" == "$IP_CHECK" ]; then
     echo "IP match"
 else
-        echo "New IP"
+    echo "New IP"
     if [ "$PUSHOVER_TOKEN" = "" ] || [ "$PUSHOVER_USER" = "" ]; then
         echo "Pushover not configured"
     else
-        find . -type f -exec rm -f {} \;
-        touch $IP
-	    curl -s \
+        $IP=$IP_CHECK
+        curl -s \
   		    --form-string "token=$PUSHOVER_TOKEN" \
   		    --form-string "user=$PUSHOVER_USER" \
   		    --form-string "message=New IP address! $IP" \
@@ -23,5 +22,9 @@ else
   		    https://api.pushover.net/1/messages.json    
     fi
 fi
-sleep $INTERVAL
+if [ "$INTERVAL" = "" ]; then
+    sleep 1800
+else
+    sleep $INTERVAL
+fi
 done

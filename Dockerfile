@@ -4,8 +4,8 @@ LABEL maintainer="Sebastian Pludowski <sepludowski@gmail.com>"
 
 COPY qemu-arm-static /usr/bin/
 
-ADD check-ip.sh .
+ADD .check_ip.sh /opt
 
-RUN chmod a+x ./check-ip.sh
+RUN chmod a+x /opt/check_ip.sh
 
-CMD ["/check-ip.sh"]
+CMD ["/opt/check_ip.sh"]
