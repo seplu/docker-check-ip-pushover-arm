@@ -18,12 +18,15 @@ else
     if [ "$PUSHOVER_TOKEN" = "" ] || [ "$PUSHOVER_USER" = "" ]; then
         echo "[CHECK_IP] Pushover not configured"
     else
+        if [ "$PUSHOVER_PRIORITY" = "" ]; then
+            PUSHOVER_PRIORITY=1
+        fi
         curl -s \
-  		    --form-string "token=$PUSHOVER_TOKEN" \
-  		    --form-string "user=$PUSHOVER_USER" \
-  		    --form-string "message=New IP address! $IP" \
-            --form-string "priority=1" \
-  		    https://api.pushover.net/1/messages.json    
+            --form-string "token=$PUSHOVER_TOKEN" \
+            --form-string "user=$PUSHOVER_USER" \
+            --form-string "message=New IP address! $IP" \
+            --form-string "priority=$PUSHOVER_PRIORITY" \
+            https://api.pushover.net/1/messages.json
     fi
 fi
 if [ "$INTERVAL" = "" ]; then
