@@ -5,8 +5,8 @@ Script will push message only when IP address was changed.
 
 # Environment Variables:
 
-`INTERVAL` - default value is 1800 [ in seconds ]
-`PUSHOVER_PRIORITY` - default value is 1
+`INTERVAL` - default value is 1800 [ in seconds ]  
+`PUSHOVER_PRIORITY` - default value is 1  
 `PUSHOVER_TOKEN` - token for pushover  
 `PUSHOVER_USER` - pushover username  
 
@@ -18,7 +18,7 @@ docker run -it --name check-ip -e INTERVAL=1800 -e PUSHOVER_PRIORITY=1 -e PUSHOV
 
 # Docker compose example
 ```
-mysql:
+check-ip:
   image: sepludowski/docker-check-ip-pushover-arm
   environment:
     INTERVAL: 1800
