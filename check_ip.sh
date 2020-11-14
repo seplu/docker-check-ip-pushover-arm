@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 IP=$(curl -s ipinfo.io/ip)
 
