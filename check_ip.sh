@@ -1,19 +1,23 @@
 #!/bin/sh
 
-IP=$(curl -s ipinfo.io/ip)
+if [ ! -f /opt/logs/ip_logs.log ]; then
+    touch /opt/logs/ip_logs.log
+fi
 
 while true; do
 
-IP_CHECK=$(curl -s ipinfo.io/ip)
+IP=$(curl -s ipinfo.io/ip)
 
-if [ "$IP" == "$IP_CHECK" ]; then
-    echo "IP match"
+tail -1 /opt/logs/ip_logs.log | grep $IP
+if [ $? -ne 1 ]; then
+    echo "[CHECK_IP] IP match"
 else
-    echo "New IP"
+    echo "[CHECK_IP] New IP - $IP"
+    DATA=$(date)
+    echo "$DATA -- $IP" >> /opt/logs/ip_logs.log
     if [ "$PUSHOVER_TOKEN" = "" ] || [ "$PUSHOVER_USER" = "" ]; then
-        echo "Pushover not configured"
+        echo "[CHECK_IP] Pushover not configured"
     else
-        $IP=$IP_CHECK
         curl -s \
   		    --form-string "token=$PUSHOVER_TOKEN" \
   		    --form-string "user=$PUSHOVER_USER" \

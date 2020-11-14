@@ -13,7 +13,7 @@ Script will push message only when IP address was changed.
 
 # Create an instance
 ```
-docker run -it --name check-ip -e INTERVAL=1800 -e PUSHOVER_PRIORITY=1 -e PUSHOVER_TOKEN=1234567890 -e PUSHOVER_USER=1234567890 sepludowski/docker-check-ip-pushover-arm
+docker run -it --name check-ip -v /opt/logs:/opt/logs -e INTERVAL=1800 -e PUSHOVER_PRIORITY=1 -e PUSHOVER_TOKEN=1234567890 -e PUSHOVER_USER=1234567890 sepludowski/docker-check-ip-pushover-arm
 ```
 
 # Docker compose example
@@ -25,6 +25,8 @@ check-ip:
     PUSHOVER_PRIORITY: 1
     PUSHOVER_TOKEN: 1234567890
     PUSHOVER_USER: 1234567890
+  volumes:
+    - /opt/logs:/opt/logs
   restart: always
 ```
 
