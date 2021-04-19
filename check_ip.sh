@@ -4,11 +4,18 @@ if [ ! -f /opt/logs/ip_logs.log ]; then
     touch /opt/logs/ip_logs.log
 fi
 
+if [ -w /opt/logs/ip_logs.log ]; then
+    echo "/opt/logs/ip_logs.log - Writable"
+else
+    echo "/opt/logs/ip_logs.log - Not Writable"
+    exit 1
+fi
+
 while true; do
 
 IP=$(curl -s ipinfo.io/ip)
-
-tail -1 /opt/logs/ip_logs.log | grep $IP
+LAST_ENTRY=$(tail -1 /opt/logs/ip_logs.log)
+echo $LAST_ENTRY | grep $IP
 if [ $? -ne 1 ]; then
     echo "[CHECK_IP] IP match"
 else
