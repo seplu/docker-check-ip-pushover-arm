@@ -14,8 +14,7 @@ fi
 while true; do
 
 IP=$(curl -s ipinfo.io/ip)
-LAST_ENTRY=$(tail -1 /opt/logs/ip_logs.log)
-echo $LAST_ENTRY | grep $IP
+tail -1 /opt/logs/ip_logs.log | grep $IP
 if [ $? -ne 1 ]; then
     echo "[CHECK_IP] IP match"
 else
