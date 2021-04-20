@@ -4,7 +4,7 @@ LABEL maintainer="Sebastian Pludowski <sepludowski@gmail.com>"
 
 COPY qemu-arm-static /usr/bin/
 
-RUN apk --no-cache add curl
+RUN apk --no-cache add curl grep
 
 ADD check_ip.sh /opt
 
