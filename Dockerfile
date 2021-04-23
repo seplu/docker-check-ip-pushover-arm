@@ -1,4 +1,4 @@
-FROM arm32v7/alpine:latest
+FROM arm32v7/alpine:3.12.7
 
 LABEL maintainer="Sebastian Pludowski <sepludowski@gmail.com>"
 
